@@ -1,4 +1,4 @@
-package com.mf.mallcommon;
+package com.mf.mall.common;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
