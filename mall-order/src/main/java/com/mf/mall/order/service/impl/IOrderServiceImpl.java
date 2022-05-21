@@ -40,9 +40,9 @@ public class IOrderServiceImpl implements IOrderService {
              log.info("useCouponResponse::{}", useCouponResponse);
         }
         /** 2.检查并且扣减库存 **/
-        List<OrderItemDTO> orderItemDTOList = orderDTO.getOrderItemDTOList();
-        BaseResponse stockResponse = goodsFeign.checkAndDecreaseStock();
-        log.info("goodsFeign::, {}", stockResponse);
+//        List<OrderItemDTO> orderItemDTOList = orderDTO.getOrderItemDTOList();
+//        BaseResponse stockResponse = goodsFeign.checkAndDecreaseStock();
+//        log.info("goodsFeign::, {}", stockResponse);
 
 
         // 3.保存订单到数据库

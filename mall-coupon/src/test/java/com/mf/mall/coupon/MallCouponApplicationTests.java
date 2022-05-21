@@ -1,4 +1,4 @@
-package com.mf.mall.goods;
+package com.mf.mall.coupon;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

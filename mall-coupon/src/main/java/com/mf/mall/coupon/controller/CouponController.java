@@ -1,4 +1,4 @@
-package com.mf.mall.goods.controller;
+package com.mf.mall.coupon.controller;
 
 import com.mf.mall.common.base.BaseResponse;
 import com.mf.mall.common.dto.CouponRecordDTO;
