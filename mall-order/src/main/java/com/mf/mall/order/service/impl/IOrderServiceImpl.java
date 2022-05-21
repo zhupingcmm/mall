@@ -6,7 +6,7 @@ import com.mf.mall.common.dto.OrderDTO;
 import com.mf.mall.common.dto.OrderItemDTO;
 import com.mf.mall.common.util.ObjectTransformer;
 import com.mf.mall.order.feign.coupon.CouponFeign;
-import com.mf.mall.order.feign.goods.GoodsFeign;
+import com.mf.mall.order.feign.goods.ProductsFeign;
 import com.mf.mall.order.mapper.OrderItemMapper;
 import com.mf.mall.order.mapper.OrderMapper;
 import com.mf.mall.order.model.OrderDO;
@@ -26,7 +26,7 @@ public class IOrderServiceImpl implements IOrderService {
     private final OrderMapper orderMapper;
     private final OrderItemMapper orderItemMapper;
     private final CouponFeign couponFeign;
-    private final GoodsFeign goodsFeign;
+    private final ProductsFeign goodsFeign;
 
     @Override
     public boolean createOrder(OrderDTO orderDTO) {
@@ -40,20 +40,20 @@ public class IOrderServiceImpl implements IOrderService {
              log.info("useCouponResponse::{}", useCouponResponse);
         }
         /** 2.检查并且扣减库存 **/
-//        List<OrderItemDTO> orderItemDTOList = orderDTO.getOrderItemDTOList();
-//        BaseResponse stockResponse = goodsFeign.checkAndDecreaseStock();
-//        log.info("goodsFeign::, {}", stockResponse);
+        List<OrderItemDTO> orderItemDTOList = orderDTO.getOrderItemDTOList();
+        BaseResponse stockResponse = goodsFeign.checkAndDecreaseStock(orderItemDTOList);
+        log.info("goodsFeign::, {}", stockResponse);
 
 
         // 3.保存订单到数据库
-//        OrderDO orderDO = ObjectTransformer.transform(orderDTO, OrderDO.class);
-//        int result = orderMapper.insertOrder(orderDO);
-//        log.info("Success save order into db order {}", result);
+        OrderDO orderDO = ObjectTransformer.transform(orderDTO, OrderDO.class);
+        int result = orderMapper.insertOrder(orderDO);
+        log.info("Success save order into db order {}", result);
 
         /** 4.保存订单详细 **/
-//        List<OrderItemDO> orderItemDOList = ObjectTransformer.transform(orderItemDTOList, OrderItemDO.class);
-//        orderItemMapper.insertOrderItems(orderItemDOList);
-//        log.info("Success save order into db orderItem {}", result);
+        List<OrderItemDO> orderItemDOList = ObjectTransformer.transform(orderItemDTOList, OrderItemDO.class);
+        orderItemMapper.insertOrderItems(orderItemDOList);
+        log.info("Success save order into db orderItem {}", result);
 
         return true;
     }

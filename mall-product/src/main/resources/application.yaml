@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: mall-product
+  #???????
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/mall_order?useInformationSchema=false&charset=utf8mb4&useSSL=false&allowMultiQueries=true&allowPublicKeyRetrieval=true
+#    username: root
+#    password: 1234
+
+#mybatis:
+#  mapper-locations: classpath:mapping/*Mapper.xml
+#  type-aliases-package: com.mf.mall.order.model
+server:
+  port: 8086
+logging:
+  level:
+    level: info
+  file:
+    name: logs/mall-product.log
+

@@ -27,4 +27,7 @@ logging:
 mall-coupon:
   ribbon:
     listOfServers: http://localhost:8085
+mall-product:
+  ribbon:
+    listOfServers: http://localhost:8086
 

@@ -1,7 +1,7 @@
 package com.mf.mall.order.config;
 
 import com.mf.mall.order.feign.coupon.CouponFeignFallback;
-import com.mf.mall.order.feign.goods.GoodsFeignFallback;
+import com.mf.mall.order.feign.goods.ProductsFeignFallback;
 import org.springframework.context.annotation.Bean;
 
 public class FeignConfig {
@@ -11,7 +11,7 @@ public class FeignConfig {
     }
 
     @Bean
-    public GoodsFeignFallback goodsFeignFallback() {
-        return new GoodsFeignFallback();
+    public ProductsFeignFallback productsFeignFallback() {
+        return new ProductsFeignFallback();
     }
 }
