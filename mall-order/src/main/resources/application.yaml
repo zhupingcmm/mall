@@ -11,11 +11,20 @@ spring:
 mybatis:
   mapper-locations: classpath:mapping/*Mapper.xml
   type-aliases-package: com.mf.mall.order.model
+feign:
+  client:
+    config:
+      default:
+        connect-timeout: 5000
+        read-timeout: 5000
 server:
   port: 8084
 logging:
   level:
     level: info
   file:
-    name: logs/starter.log
+    name: logs/mall-order.log
+mall-coupon:
+  ribbon:
+    listOfServers: http://localhost:8085
 

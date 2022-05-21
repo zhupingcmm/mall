@@ -4,6 +4,9 @@ import com.mf.mall.common.base.ResponseEnum;
 import com.mf.mall.common.exception.BusinessException;
 import org.springframework.beans.BeanUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ObjectTransformer {
 
     public static <T> T transform(Object source, Class<T> t){
@@ -22,5 +25,16 @@ public class ObjectTransformer {
            throw new BusinessException(ResponseEnum.TRANSFORM_EXCEPTION);
         }
         return target;
+    }
+
+    public static <T> List<T> transform(List<?> list, Class<T> t) {
+        if (null == list) {
+            return new ArrayList<>();
+        }
+        List<T> resultList = new ArrayList<>(list.size());
+        for (Object element : list) {
+            resultList.add(transform(element, t));
+        }
+        return resultList;
     }
 }

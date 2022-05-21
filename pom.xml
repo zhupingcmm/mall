@@ -14,6 +14,7 @@
     <modules>
         <module>mall-order</module>
         <module>mall-common</module>
+        <module>mall-coupon</module>
     </modules>
 
     <properties>
@@ -35,6 +36,11 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-starter-openfeign</artifactId>
+                <version>${alibaba.cloud.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
                 <version>${alibaba.cloud.version}</version>
             </dependency>
             <dependency>
