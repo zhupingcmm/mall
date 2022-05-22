@@ -29,4 +29,10 @@ public class ProductController {
         return BaseResponse.success(productsDTO);
     }
 
+    @PostMapping("/products")
+    public BaseResponse addProduct(@RequestBody ProductsDTO productsDTO) {
+        productService.addProduct(productsDTO);
+        return BaseResponse.success();
+    }
+
 }

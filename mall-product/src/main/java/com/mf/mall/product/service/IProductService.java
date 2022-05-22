@@ -4,4 +4,6 @@ import com.mf.mall.common.dto.ProductsDTO;
 
 public interface IProductService {
     ProductsDTO getProduct(Long id);
+
+    boolean addProduct(ProductsDTO productsDTO);
 }

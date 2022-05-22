@@ -16,4 +16,23 @@
         select * from `mall_products`.t_products
         where id = #{id}
     </select>
+
+    <insert id="insertProduct" parameterType="com.mf.mall.product.model.ProductsDO">
+        insert into `mall_products`.t_products
+        (
+             name,
+             description,
+             type,
+             price,
+             stock
+        )
+        values
+        (
+             #{name},
+             #{description},
+             #{type},
+             #{price},
+             #{stock}
+        )
+    </insert>
 </mapper>

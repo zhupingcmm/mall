@@ -7,4 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 public interface ProductsMapper {
 
     ProductsDO selectProductById(Long id);
+
+    int insertProduct(ProductsDO productsDO);
+
 }

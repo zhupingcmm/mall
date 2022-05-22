@@ -1,5 +1,6 @@
 package com.mf.mall.product.service.impl;
 
+import com.mf.mall.common.util.Assert;
 import com.mf.mall.common.util.ObjectTransformer;
 import com.mf.mall.product.mapper.ProductsMapper;
 import com.mf.mall.product.model.ProductsDO;
@@ -21,5 +22,12 @@ public class ProductServiceImpl implements IProductService {
         log.info("Success to get product info {} by {}", productsDO, id);
 
         return ObjectTransformer.transform(productsDO,ProductsDTO.class);
+    }
+
+    @Override
+    public boolean addProduct(ProductsDTO productsDTO) {
+        ProductsDO productsDO = ObjectTransformer.transform(productsDTO, ProductsDO.class);
+        int result = productsMapper.insertProduct(productsDO);
+        return Assert.singleRowAffected(result);
     }
 }
