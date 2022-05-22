@@ -13,4 +13,11 @@ public class Assert<T> {
 
         return true;
     }
+
+    public static <T> boolean notNull (T data) {
+        if (data == null) {
+            throw new BusinessException(ResponseEnum.ENTITY_NOT_FOUND);
+        }
+        return true;
+    }
 }
