@@ -9,6 +9,7 @@ import com.mf.mall.product.service.IProductService;
 import com.mf.mall.common.dto.ProductsDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,19 +21,12 @@ public class ProductServiceImpl implements IProductService {
     private final ProductsMapper productsMapper;
     private final RedisTemplate<String,ProductsDO> redisTemplate;
 
+    @Cacheable(cacheNames = Constants.PRODUCT_CHANGE_KEY, key = "#id")
     @Override
     public ProductsDTO getProduct(Long id) {
-        String cacheKey = String.format(Constants.PRODUCTS_CACHE_KEY, id);
-        ProductsDO productsDO = redisTemplate.opsForValue().get(cacheKey);
-        log.info("cache key: {}, value: {}", cacheKey, productsDO);
-
-        if (productsDO == null) {
-            productsDO  = productsMapper.selectProductById(id);
-            Assert.notNull(productsDO);
-            log.info("Success to get product info {} by {}", productsDO, id);
-            redisTemplate.opsForValue().set(cacheKey, productsDO);
-        }
-
+        ProductsDO  productsDO  = productsMapper.selectProductById(id);
+        log.info("Get productsDO: {}", productsDO);
+        Assert.notNull(productsDO);
         return ObjectTransformer.transform(productsDO,ProductsDTO.class);
     }
 

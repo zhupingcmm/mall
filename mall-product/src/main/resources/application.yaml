@@ -10,6 +10,8 @@ spring:
   redis:
     host: localhost
     port: 6379
+cacheable:
+  expirekey: "{'mall:product::1': '10'}"
 
 mybatis:
   mapper-locations: classpath:mapping/*Mapper.xml
