@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mf.mall.product.mapper.ProductsMapper">
+    <resultMap id="BaseResultMap" type="com.mf.mall.product.model.ProductsDO">
+            <result column="id" jdbcType="BIGINT" property="id" />
+             <result column="name" jdbcType="VARCHAR" property="name" />
+             <result column="description" jdbcType="VARCHAR" property="description" />
+             <result column="type" jdbcType="TINYINT" property="type" />
+             <result column="price" jdbcType="DECIMAL" property="price" />
+             <result column="stock" jdbcType="BIGINT" property="stock" />
+             <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+             <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    </resultMap>
+
+    <select id="selectProductById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select * from `mall_products`.t_products
+        where id = #{id}
+    </select>
+</mapper>
