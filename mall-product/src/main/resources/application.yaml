@@ -7,6 +7,9 @@ spring:
     url: jdbc:mysql://localhost:3306/mall_products?useInformationSchema=false&charset=utf8mb4&useSSL=false&allowMultiQueries=true&allowPublicKeyRetrieval=true
     username: root
     password: 1234
+  redis:
+    host: localhost
+    port: 6379
 
 mybatis:
   mapper-locations: classpath:mapping/*Mapper.xml
