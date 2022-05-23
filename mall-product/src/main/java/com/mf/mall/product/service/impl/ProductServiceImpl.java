@@ -3,6 +3,7 @@ package com.mf.mall.product.service.impl;
 import com.mf.mall.common.base.Constants;
 import com.mf.mall.common.util.Assert;
 import com.mf.mall.common.util.ObjectTransformer;
+import com.mf.mall.product.aspect.MyCacheable;
 import com.mf.mall.product.mapper.ProductsMapper;
 import com.mf.mall.product.model.ProductsDO;
 import com.mf.mall.product.service.IProductService;
@@ -21,7 +22,8 @@ public class ProductServiceImpl implements IProductService {
     private final ProductsMapper productsMapper;
     private final RedisTemplate<String,ProductsDO> redisTemplate;
 
-    @Cacheable(cacheNames = Constants.PRODUCT_CHANGE_KEY, key = "#id")
+//    @Cacheable(cacheNames = Constants.PRODUCT_CHANGE_KEY, key = "#id")
+    @MyCacheable(cacheName = Constants.PRODUCT_CHANGE_KEY_PRE, key = "#id", expireInSeconds = 10)
     @Override
     public ProductsDTO getProduct(Long id) {
         ProductsDO  productsDO  = productsMapper.selectProductById(id);
