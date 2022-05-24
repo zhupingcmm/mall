@@ -1,12 +1,18 @@
 package com.mf.mall.product.aspect;
 
+import com.google.common.collect.Maps;
+import com.google.common.util.concurrent.RateLimiter;
+import com.mf.mall.common.base.ResponseEnum;
+import com.mf.mall.common.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.core.DefaultParameterNameDiscoverer;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.expression.EvaluationContext;
@@ -15,19 +21,37 @@ import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
+import javax.annotation.PostConstruct;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @Component
 @Slf4j
 @RequiredArgsConstructor
 @Aspect
+@ConfigurationProperties(prefix = "mycacheable.rate.limit")
 public class MyCacheableAspect {
     private final RedisTemplate<String, Object> redisTemplate;
+    @Setter
+    private Map<String, Double> map;
 
 //    @Pointcut("@annotation(com.mf.mall.product.aspect.MyCacheable)")
 //    public void pointCut(){
 //    }
+
+    private Map<String, RateLimiter> rateLimiterMap= Maps.newHashMap();
+
+    @PostConstruct
+    private void initRateLimiterMap () {
+        if (!CollectionUtils.isEmpty(map)) {
+            map.forEach((methodName, permits) -> {
+                RateLimiter rateLimiter = RateLimiter.create(permits);
+                rateLimiterMap.put(methodName, rateLimiter);
+            });
+        }
+    }
 
     @Around("@annotation(myCacheable)")
     public Object doAroundCache(ProceedingJoinPoint joinPoint, MyCacheable myCacheable) throws Throwable {
@@ -41,6 +65,8 @@ public class MyCacheableAspect {
             return cacheValue;
         }
 
+        // 限流处理
+        rateLimit(joinPoint, myCacheable);
         // 查询数据库
         cacheValue = joinPoint.proceed();
         // 过期时间的处理
@@ -51,6 +77,23 @@ public class MyCacheableAspect {
         }
 
         return cacheValue;
+    }
+
+    private void rateLimit(ProceedingJoinPoint joinPoint, MyCacheable myCacheable) {
+        val signature = (MethodSignature) joinPoint.getSignature();
+        RateLimiter rateLimiter = rateLimiterMap.get(signature.getMethod().getName());
+        if (rateLimiter != null) {
+            int waitInSeconds = myCacheable.waitInSeconds();
+            if (waitInSeconds <= 0) {
+                rateLimiter.acquire();
+            } else {
+              boolean acquire = rateLimiter.tryAcquire(waitInSeconds, TimeUnit.SECONDS);
+              if (!acquire) {
+                  throw new BusinessException(ResponseEnum.SYSTEM_ERROR);
+              }
+            }
+
+        }
     }
 
     private String getCacheKey(ProceedingJoinPoint joinPoint, MyCacheable myCacheable) {

@@ -23,8 +23,9 @@ public class ProductServiceImpl implements IProductService {
     private final RedisTemplate<String,ProductsDO> redisTemplate;
 
 //    @Cacheable(cacheNames = Constants.PRODUCT_CHANGE_KEY, key = "#id")
-    @MyCacheable(cacheName = Constants.PRODUCT_CHANGE_KEY_PRE, key = "#id", expireInSeconds = 10)
+
     @Override
+    @MyCacheable(cacheName = Constants.PRODUCT_CHANGE_KEY_PRE, key = "#id", expireInSeconds = 1, waitInSeconds = 1)
     public ProductsDTO getProduct(Long id) {
         ProductsDO  productsDO  = productsMapper.selectProductById(id);
         log.info("Get productsDO: {}", productsDO);

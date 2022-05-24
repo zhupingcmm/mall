@@ -23,4 +23,8 @@ logging:
     level: info
   file:
     name: logs/mall-product.log
+mycacheable:
+  rate:
+    limit:
+      map: {getProduct: 0.1}
 
