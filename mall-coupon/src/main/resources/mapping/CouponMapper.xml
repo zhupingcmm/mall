@@ -36,4 +36,10 @@
             #{status}
         )
     </insert>
+    <update id="updateCouponTakeCount" parameterType="com.mf.mall.coupon.model.CouponDO">
+        update `mall_coupon`.t_coupon set take_count = #{takeCount} where id = #{id}
+    </update>
+    <select id="selectCouponById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select * from `mall_coupon`.t_coupon
+    </select>
 </mapper>

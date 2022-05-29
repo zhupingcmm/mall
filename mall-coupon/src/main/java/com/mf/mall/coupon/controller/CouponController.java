@@ -3,6 +3,7 @@ package com.mf.mall.coupon.controller;
 import com.mf.mall.common.base.BaseResponse;
 import com.mf.mall.common.dto.CouponDTO;
 import com.mf.mall.common.dto.CouponRecordDTO;
+import com.mf.mall.coupon.service.ICouponRecordService;
 import com.mf.mall.coupon.service.ICouponService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class CouponController {
 
     private final ICouponService couponService;
+    private final ICouponRecordService couponRecordService;
 
     /**
      * 更新优惠券状态
@@ -33,6 +35,12 @@ public class CouponController {
     @PostMapping("/coupon")
     BaseResponse createCoupon(@RequestBody CouponDTO couponDTO){
         couponService.createCoupon(couponDTO);
+        return BaseResponse.success();
+    }
+
+    @PostMapping("/couponRecord")
+    BaseResponse receiveCoupon(@RequestBody CouponRecordDTO couponRecordDTO){
+        couponRecordService.receiveCoupon(couponRecordDTO);
         return BaseResponse.success();
     }
 }

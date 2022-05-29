@@ -11,4 +11,9 @@ public interface CouponMapper {
      * @return
      */
     int insertCoupon(CouponDO couponDO);
+
+
+    CouponDO selectCouponById(long couponId);
+
+    int updateCouponTakeCount(CouponDO couponDO);
 }
