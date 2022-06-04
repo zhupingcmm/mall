@@ -1,15 +1,16 @@
 package com.mf.mall.common.base;
 
-
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 
-@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @Data
 @Builder
 @AllArgsConstructor
-public class BaseResponse<T> extends BaseBean{
+public class BaseResponse<T> extends BaseBean {
     private int code;
     private String message;
     private T data;
@@ -53,7 +54,5 @@ public class BaseResponse<T> extends BaseBean{
     public static BaseResponse error() {
         return new BaseResponse(ResponseEnum.ERROR);
     }
-
-
 
 }

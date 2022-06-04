@@ -2,8 +2,10 @@ package com.mf.mall.common.util;
 
 import com.mf.mall.common.base.ResponseEnum;
 import com.mf.mall.common.exception.BusinessException;
-import org.springframework.beans.BeanUtils;
+import org.apache.commons.beanutils.BeanUtils;
 
+
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +16,7 @@ public class ObjectTransformer {
     }
 
     public static <T> T transform(Object source, Class<T> t, ObjectTransformAfter<T> after) {
-        T target;
+        T target = null;
         try {
             target = t.newInstance();
             BeanUtils.copyProperties(source, target);
@@ -23,6 +25,8 @@ public class ObjectTransformer {
             }
         } catch (InstantiationException | IllegalAccessException e) {
            throw new BusinessException(ResponseEnum.TRANSFORM_EXCEPTION);
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
         }
         return target;
     }

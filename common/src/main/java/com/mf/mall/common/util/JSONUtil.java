@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.mf.mall.common.base.ResponseEnum;
 import com.mf.mall.common.exception.BusinessException;
-import org.springframework.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 public class JSONUtil {
     private static final ObjectMapper mapper;

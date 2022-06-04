@@ -1,15 +1,15 @@
 package com.mf.mall.common.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.mf.mall.common.base.BaseBean;
+import lombok.*;
+
+
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Data
-public class CouponRecordDTO {
+public class CouponRecordDTO extends BaseBean{
     /**
      * 优惠券记录ID
      **/
