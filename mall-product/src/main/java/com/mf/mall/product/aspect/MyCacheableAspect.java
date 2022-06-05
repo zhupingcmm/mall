@@ -6,14 +6,12 @@ import com.mf.mall.common.base.ResponseEnum;
 import com.mf.mall.common.exception.BusinessException;
 import com.mf.mall.product.config.MyCacheableConfig;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.core.DefaultParameterNameDiscoverer;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.expression.EvaluationContext;
@@ -32,22 +30,18 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 @RequiredArgsConstructor
 @Aspect
-//@ConfigurationProperties(prefix = "mycacheable.rate.limit")
 public class MyCacheableAspect {
     private final RedisTemplate<String, Object> redisTemplate;
     private final MyCacheableConfig myCacheableConfig;
-//    @Setter
-//    private Map<String, Double> map;
 
 //    @Pointcut("@annotation(com.mf.mall.product.aspect.MyCacheable)")
 //    public void pointCut(){
 //    }
 
-    private Map<String, RateLimiter> rateLimiterMap= Maps.newHashMap();
+    private final Map<String, RateLimiter> rateLimiterMap= Maps.newHashMap();
 
     @PostConstruct
     private void initRateLimiterMap () {
-//        myCacheableConfig.getRateLimit().getMap();
         Map<String, Double> map = myCacheableConfig.getRateLimit().getMap();
         if (!CollectionUtils.isEmpty(map)) {
             map.forEach((methodName, permits) -> {
@@ -113,6 +107,6 @@ public class MyCacheableAspect {
         for (int i = 0; i < parameterNames.length; i++) {
             context.setVariable(parameterNames[i], args[i]);
         }
-        return myCacheable.cacheName() + expression.getValue(context).toString();
+        return myCacheable.cacheNames() + expression.getValue(context).toString();
     }
 }

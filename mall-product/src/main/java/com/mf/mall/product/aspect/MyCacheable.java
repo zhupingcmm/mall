@@ -16,7 +16,7 @@ public @interface MyCacheable {
      * 缓存的名称前缀，完整的缓存名称生成规则: {cacheName}:{key}
      * @return
      */
-    String cacheName();
+    String cacheNames();
 
     /**
      *

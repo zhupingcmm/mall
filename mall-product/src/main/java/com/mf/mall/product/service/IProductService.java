@@ -6,4 +6,6 @@ public interface IProductService {
     ProductsDTO getProduct(Long id);
 
     boolean addProduct(ProductsDTO productsDTO);
+
+    void deleteProductById(Long id);
 }

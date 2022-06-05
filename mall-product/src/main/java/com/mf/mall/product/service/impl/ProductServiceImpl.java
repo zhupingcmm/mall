@@ -3,6 +3,7 @@ package com.mf.mall.product.service.impl;
 import com.mf.mall.common.base.Constants;
 import com.mf.mall.common.util.Assert;
 import com.mf.mall.common.util.ObjectTransformer;
+import com.mf.mall.product.aspect.MyCacheEvict;
 import com.mf.mall.product.aspect.MyCacheable;
 import com.mf.mall.product.mapper.ProductsMapper;
 import com.mf.mall.product.model.ProductsDO;
@@ -10,6 +11,7 @@ import com.mf.mall.product.service.IProductService;
 import com.mf.mall.common.dto.ProductsDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -25,7 +27,7 @@ public class ProductServiceImpl implements IProductService {
 //    @Cacheable(cacheNames = Constants.PRODUCT_CHANGE_KEY, key = "#id")
 
     @Override
-    @MyCacheable(cacheName = Constants.PRODUCT_CHANGE_KEY_PRE, key = "#id", expireInSeconds = 1, waitInSeconds = 1)
+    @MyCacheable(cacheNames = Constants.PRODUCT_CHANGE_KEY_PRE, key = "#id")
     public ProductsDTO getProduct(Long id) {
         ProductsDO  productsDO  = productsMapper.selectProductById(id);
         log.info("Get productsDO: {}", productsDO);
@@ -33,11 +35,20 @@ public class ProductServiceImpl implements IProductService {
         return ObjectTransformer.transform(productsDO,ProductsDTO.class);
     }
 
+
+
     @Override
     @Transactional
     public boolean addProduct(ProductsDTO productsDTO) {
         ProductsDO productsDO = ObjectTransformer.transform(productsDTO, ProductsDO.class);
         int result = productsMapper.insertProduct(productsDO);
         return Assert.singleRowAffected(result);
+    }
+
+    @Override
+    @MyCacheEvict(cacheNames = Constants.PRODUCT_CHANGE_KEY_PRE, key = "#id")
+    public void deleteProductById(Long id) {
+//        productsMapper.deleteProductById(id);
+        log.info("success to delete {}", id);
     }
 }

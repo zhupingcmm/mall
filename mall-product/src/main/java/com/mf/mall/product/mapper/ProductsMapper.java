@@ -10,4 +10,6 @@ public interface ProductsMapper {
 
     int insertProduct(ProductsDO productsDO);
 
+    void deleteProductById(Long id);
+
 }

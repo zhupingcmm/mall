@@ -16,6 +16,10 @@
         select * from `mall_products`.t_products
         where id = #{id}
     </select>
+    <delete id="deleteProductById" parameterType="java.lang.Long">
+        delete from `mall_products`.t_products
+        where id = #{id}
+    </delete>
 
     <insert id="insertProduct" parameterType="com.mf.mall.product.model.ProductsDO">
         insert into `mall_products`.t_products

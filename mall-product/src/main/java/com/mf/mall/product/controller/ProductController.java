@@ -28,6 +28,11 @@ public class ProductController {
         ProductsDTO productsDTO = productService.getProduct(id);
         return BaseResponse.success(productsDTO);
     }
+    @DeleteMapping("/products/{id}")
+    public BaseResponse deleteProduct(@PathVariable Long id){
+        productService.deleteProductById(id);
+        return BaseResponse.success();
+    }
 
     @PostMapping("/products")
     public BaseResponse addProduct(@RequestBody ProductsDTO productsDTO) {
