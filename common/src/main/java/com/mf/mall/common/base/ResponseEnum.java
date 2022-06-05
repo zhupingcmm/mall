@@ -1,5 +1,7 @@
 package com.mf.mall.common.base;
 
+import lombok.Getter;
+
 public enum ResponseEnum {
     SUCCESS(0, "交易成功"),
 
@@ -31,15 +33,10 @@ public enum ResponseEnum {
         this.code = code;
         this.message = message;
     }
-
+    @Getter
     private int code;
+    @Getter
     private String message;
 
-    public int getCode() {
-        return code;
-    }
 
-    public String getMessage() {
-        return message;
-    }
 }
