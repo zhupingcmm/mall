@@ -46,9 +46,9 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    @MyCacheEvict(cacheNames = Constants.PRODUCT_CHANGE_KEY_PRE, key = "#id")
+    @CacheEvict(cacheNames = Constants.PRODUCT_CHANGE_KEY_PRE, key = "#id")
     public void deleteProductById(Long id) {
-//        productsMapper.deleteProductById(id);
+        productsMapper.deleteProductById(id);
         log.info("success to delete {}", id);
     }
 }

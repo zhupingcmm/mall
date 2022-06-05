@@ -10,4 +10,8 @@ public @interface MyCacheEvict {
     String cacheNames();
 
     String key();
+
+    boolean beforeInvocation() default false;
+
+    boolean allEntries() default false;
 }
