@@ -8,4 +8,6 @@ public interface IProductService {
     boolean addProduct(ProductsDTO productsDTO);
 
     void deleteProductById(Long id);
+
+    boolean updateProduct(ProductsDTO productsDTO);
 }

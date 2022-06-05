@@ -4,6 +4,7 @@ import com.mf.mall.common.base.Constants;
 import com.mf.mall.common.util.Assert;
 import com.mf.mall.common.util.ObjectTransformer;
 import com.mf.mall.product.aspect.MyCacheEvict;
+import com.mf.mall.product.aspect.MyCachePut;
 import com.mf.mall.product.aspect.MyCacheable;
 import com.mf.mall.product.mapper.ProductsMapper;
 import com.mf.mall.product.model.ProductsDO;
@@ -12,7 +13,6 @@ import com.mf.mall.common.dto.ProductsDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,9 +46,17 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    @CacheEvict(cacheNames = Constants.PRODUCT_CHANGE_KEY_PRE, key = "#id")
+    @MyCacheEvict(cacheNames = Constants.PRODUCT_CHANGE_KEY_PRE, key = "#id")
     public void deleteProductById(Long id) {
         productsMapper.deleteProductById(id);
         log.info("success to delete {}", id);
+    }
+
+    @Override
+    @MyCachePut(cacheNames = Constants.PRODUCT_CHANGE_KEY_PRE, key = "#id")
+    public boolean updateProduct(ProductsDTO productsDTO) {
+        ProductsDO productsDO = ObjectTransformer.transform(productsDTO, ProductsDO.class);
+        int result = productsMapper.updateProduct(productsDO);
+        return Assert.singleRowAffected(result);
     }
 }

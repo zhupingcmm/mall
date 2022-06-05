@@ -39,4 +39,9 @@
              #{stock}
         )
     </insert>
+    <update id="updateProduct" parameterType="com.mf.mall.product.model.ProductsDO">
+        update from `mall_products`.t_products
+        set name=#{name}, description=#{description}, type=#{type}, price=#{price}, stock=#{stock}
+        where id=#{id}
+    </update>
 </mapper>

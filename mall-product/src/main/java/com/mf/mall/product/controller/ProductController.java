@@ -34,6 +34,12 @@ public class ProductController {
         return BaseResponse.success();
     }
 
+    @PutMapping("/products")
+    public BaseResponse<ProductsDTO> updateProduct(@RequestBody ProductsDTO productsDTO){
+        productService.updateProduct(productsDTO);
+        return BaseResponse.success();
+    }
+
     @PostMapping("/products")
     public BaseResponse addProduct(@RequestBody ProductsDTO productsDTO) {
         productService.addProduct(productsDTO);
