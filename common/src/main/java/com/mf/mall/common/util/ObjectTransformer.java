@@ -19,7 +19,7 @@ public class ObjectTransformer {
         T target = null;
         try {
             target = t.newInstance();
-            BeanUtils.copyProperties(source, target);
+            BeanUtils.copyProperties(target, source);
             if (after != null) {
                 after.after(source, target);
             }

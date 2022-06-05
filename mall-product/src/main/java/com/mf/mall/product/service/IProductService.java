@@ -9,5 +9,5 @@ public interface IProductService {
 
     void deleteProductById(Long id);
 
-    boolean updateProduct(ProductsDTO productsDTO);
+    ProductsDTO updateProduct(ProductsDTO productsDTO);
 }

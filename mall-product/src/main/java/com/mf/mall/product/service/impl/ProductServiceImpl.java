@@ -12,7 +12,6 @@ import com.mf.mall.product.service.IProductService;
 import com.mf.mall.common.dto.ProductsDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,10 +52,11 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    @MyCachePut(cacheNames = Constants.PRODUCT_CHANGE_KEY_PRE, key = "#id")
-    public boolean updateProduct(ProductsDTO productsDTO) {
+    @MyCachePut(cacheNames = Constants.PRODUCT_CHANGE_KEY_PRE, key = "#productsDTO.id")
+    public ProductsDTO updateProduct(ProductsDTO productsDTO) {
         ProductsDO productsDO = ObjectTransformer.transform(productsDTO, ProductsDO.class);
         int result = productsMapper.updateProduct(productsDO);
-        return Assert.singleRowAffected(result);
+        Assert.singleRowAffected(result);
+        return productsDTO;
     }
 }
