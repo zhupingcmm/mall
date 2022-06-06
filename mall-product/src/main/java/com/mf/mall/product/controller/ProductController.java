@@ -13,34 +13,36 @@ import java.util.List;
 @RestController
 @Slf4j
 @RequiredArgsConstructor
+@RequestMapping("/products")
 public class ProductController {
 
     private final IProductService productService;
 
-    @PutMapping("/products/stock")
+    @PutMapping("/stock")
     public BaseResponse checkAndDecreaseStock(@RequestBody List<OrderItemDTO> orderItemDTOList) {
         log.info("orderItemDTOList, {}", orderItemDTOList);
+        productService.decreaseStock(orderItemDTOList);
         return BaseResponse.success();
     }
 
-    @GetMapping("/products/{id}")
+    @GetMapping("/{id}")
     public BaseResponse<ProductsDTO> getProducts(@PathVariable Long id) {
         ProductsDTO productsDTO = productService.getProduct(id);
         return BaseResponse.success(productsDTO);
     }
-    @DeleteMapping("/products/{id}")
+    @DeleteMapping("/{id}")
     public BaseResponse deleteProduct(@PathVariable Long id){
         productService.deleteProductById(id);
         return BaseResponse.success();
     }
 
-    @PutMapping("/products")
+    @PutMapping
     public BaseResponse<ProductsDTO> updateProduct(@RequestBody ProductsDTO productsDTO){
         productService.updateProduct(productsDTO);
         return BaseResponse.success();
     }
 
-    @PostMapping("/products")
+    @PostMapping
     public BaseResponse addProduct(@RequestBody ProductsDTO productsDTO) {
         productService.addProduct(productsDTO);
         return BaseResponse.success();

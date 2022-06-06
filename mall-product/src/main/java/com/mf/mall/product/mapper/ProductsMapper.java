@@ -3,6 +3,8 @@ package com.mf.mall.product.mapper;
 import com.mf.mall.product.model.ProductsDO;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface ProductsMapper {
 
@@ -14,4 +16,11 @@ public interface ProductsMapper {
 
     int updateProduct(ProductsDO productsDO);
 
+    /**
+     * 批量更新商品库存
+     * @param productsDOList
+     * @return
+     */
+
+    int updateProductsListStock(List<ProductsDO> productsDOList);
 }

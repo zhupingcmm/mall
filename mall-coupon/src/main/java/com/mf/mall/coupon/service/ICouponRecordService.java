@@ -6,4 +6,7 @@ public interface ICouponRecordService {
 
     boolean receiveCoupon(CouponRecordDTO couponRecordDTO);
 
+    boolean useCoupon(CouponRecordDTO couponRecordDTO);
+
+
 }

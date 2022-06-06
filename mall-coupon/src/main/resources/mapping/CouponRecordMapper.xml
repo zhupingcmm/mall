@@ -29,9 +29,9 @@
 
     <select id="selectCouponRecord" parameterType="com.mf.mall.coupon.model.CouponRecordDO" resultMap="BaseResultMap">
         select *
-          from `mall_coupon`.t_coupon_record
+         from `mall_coupon`.t_coupon_record
          where id = #{id}
-           and user_id = #{userId}
+         and user_id = #{userId}
     </select>
 
     <select id="selectCouponRecordByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">

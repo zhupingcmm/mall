@@ -59,4 +59,26 @@ public class CouponRecordServiceImpl implements ICouponRecordService {
             lock.unlock();
         }
     }
+
+    @Override
+    public boolean useCoupon(CouponRecordDTO couponRecordDTO) {
+        CouponRecordDO couponRecordDO = ObjectTransformer.transform(couponRecordDTO, CouponRecordDO.class);
+        couponRecordDO = couponRecordMapper.selectCouponRecord(couponRecordDO);
+        checkCouponRecordStatus(couponRecordDO);
+        couponRecordDO.setStatus(1);
+        int result = couponRecordMapper.updateCouponRecordStatus(couponRecordDO);
+        boolean success = Assert.singleRowAffected(result);
+        //TODO 根据CouponID异步更新优惠券已使用数量
+
+        return success;
+    }
+
+    private void checkCouponRecordStatus(CouponRecordDO couponRecordDO){
+        Assert.notNull(couponRecordDO);
+        if (couponRecordDO.getStatus() == 1) {
+            throw new BusinessException(ResponseEnum.COUPON_USED);
+        } else if (couponRecordDO.getStatus() == -1) {
+            throw new BusinessException(ResponseEnum.COUPON_EXPIRED);
+        }
+    }
 }

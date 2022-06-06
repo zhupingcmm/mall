@@ -44,4 +44,12 @@
         set name=#{name}, description=#{description}, type=#{type}, price=#{price}, stock=#{stock}
         where id=#{id}
     </update>
+    <update id="updateGoodsListStock" parameterType="java.util.List">
+        <foreach collection="list" item="products" index="index" open="" close="" separator=";">
+            update `mall_products`.t_products
+               set stock = #{products.stock}
+             where id = #{products.id}
+               and stock >= #{products.stock}
+        </foreach>
+    </update>
 </mapper>

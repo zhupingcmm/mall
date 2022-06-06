@@ -12,4 +12,18 @@ public interface CouponRecordMapper {
      * @return
      */
     int insertCouponRecord(CouponRecordDO couponRecordDO);
+
+    /**
+     * 根据用户Id 和优惠券Id查找优惠券
+     * @param couponRecordDO
+     * @return
+     */
+    CouponRecordDO selectCouponRecord(CouponRecordDO couponRecordDO);
+
+    /**
+     * 根据优惠券id 更新优惠券状态
+     * @param couponRecordDO
+     * @return
+     */
+    int updateCouponRecordStatus(CouponRecordDO couponRecordDO);
 }

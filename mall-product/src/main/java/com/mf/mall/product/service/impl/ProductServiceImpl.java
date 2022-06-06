@@ -2,6 +2,7 @@ package com.mf.mall.product.service.impl;
 
 import com.mf.mall.common.base.Constants;
 import com.mf.mall.common.base.ResponseEnum;
+import com.mf.mall.common.dto.OrderItemDTO;
 import com.mf.mall.common.exception.BusinessException;
 import com.mf.mall.common.util.Assert;
 import com.mf.mall.common.util.ObjectTransformer;
@@ -17,6 +18,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -60,5 +64,20 @@ public class ProductServiceImpl implements IProductService {
         int result = productsMapper.updateProduct(productsDO);
         Assert.singleRowAffected(result);
         return productsDTO;
+    }
+
+    @Override
+    public boolean decreaseStock(List<OrderItemDTO> orderItemDTOList) {
+
+        List<ProductsDO> productsDOList = orderItemDTOList.stream().map(orderItemDTO -> ProductsDO.builder()
+                .id(orderItemDTO.getGoodsId())
+                .stock(orderItemDTO.getNumber())
+                .build()).collect(Collectors.toList());
+//        int result = productsMapper.updateProductsListStock(productsDOList);
+//        if (result != productsDOList.size()) {
+//            // 扣减成功的数量，与订单明细数量不一致，说明库存扣减有问题
+//            throw new BusinessException(ResponseEnum.GOODS_STOCK_NOT_ENOUGH);
+//        }
+        return true;
     }
 }

@@ -26,7 +26,7 @@ public class IOrderServiceImpl implements IOrderService {
     private final OrderMapper orderMapper;
     private final OrderItemMapper orderItemMapper;
     private final CouponFeign couponFeign;
-    private final ProductsFeign goodsFeign;
+    private final ProductsFeign productsFeign;
 
     @Override
     public boolean createOrder(OrderDTO orderDTO) {
@@ -41,7 +41,7 @@ public class IOrderServiceImpl implements IOrderService {
         }
         /** 2.检查并且扣减库存 **/
         List<OrderItemDTO> orderItemDTOList = orderDTO.getOrderItemDTOList();
-        BaseResponse stockResponse = goodsFeign.checkAndDecreaseStock(orderItemDTOList);
+        BaseResponse stockResponse = productsFeign.checkAndDecreaseStock(orderItemDTOList);
         log.info("goodsFeign::, {}", stockResponse);
 
 
