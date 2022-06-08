@@ -5,4 +5,6 @@ public class Constants {
     public static final String PRODUCTS_CACHE_KEY = "mall:products:%S";
 
     public static final String PRODUCT_CHANGE_KEY_PRE = "mall:product:";
+
+    public static final String SERVICE_PATH = "/mall";
 }
