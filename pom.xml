@@ -31,6 +31,7 @@
         <nacos.version>2.2.5.RELEASE</nacos.version>
         <zookeeper.version>3.7.0</zookeeper.version>
         <junit.version>4.13.2</junit.version>
+        <zkclient.version>0.11</zkclient.version>
     </properties>
 
     <parent>
@@ -94,6 +95,11 @@
                  <version>${junit.version}</version>
                  <scope>test</scope>
              </dependency>
+            <dependency>
+                <groupId>com.101tec</groupId>
+                <artifactId>zkclient</artifactId>
+                <version>${zkclient.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
