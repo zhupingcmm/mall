@@ -111,7 +111,7 @@ public class ZkLockV2 implements Lock {
 
     public static void main(String[] args) {
 
-        int concurrency = 10;
+        int concurrency = 2;
         CountDownLatch countDownLatch = new CountDownLatch(concurrency);
 
         for (int i = 0; i < concurrency; i++) {

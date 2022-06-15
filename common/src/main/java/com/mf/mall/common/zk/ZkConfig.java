@@ -37,11 +37,13 @@ public class ZkConfig {
             @Override
             public void handleDataChange(String s, Object o) throws Exception {
                 System.out.println("更新了配置内容：" + o);
+                countDownLatch.countDown();
             }
 
             @Override
             public void handleDataDeleted(String s) throws Exception {
                 System.out.println(s + "删除了配置内容");
+                countDownLatch.countDown();
             }
         };
 
