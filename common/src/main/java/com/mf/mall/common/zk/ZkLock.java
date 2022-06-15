@@ -93,24 +93,22 @@ public class ZkLock implements Lock {
 
     public static void main(String[] args) {
 
-        int concurrency = 2;
+        int concurrency = 20;
         CountDownLatch countDownLatch = new CountDownLatch(concurrency);
 
         for (int i = 0; i < concurrency; i++) {
-            Thread thread = new Thread(() -> {
-                countDownLatch.countDown();
+            new Thread(() -> {
                 try {
                     countDownLatch.await();
+                    ZkLock zkLock = new ZkLock("/lock1");
+                    zkLock.lock();
+                    System.out.println("*** " + Thread.currentThread().getName() + "获得了锁 ***");
+                    zkLock.unlock();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-
-                ZkLock zkLock = new ZkLock("/lock");
-                zkLock.lock();
-                System.out.println("*** " + Thread.currentThread().getName() + "获得了锁 ***");
-                zkLock.unlock();
-            });
-            thread.start();
+            }).start();
+            countDownLatch.countDown();
         }
     }
 }
