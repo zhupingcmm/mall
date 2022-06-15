@@ -32,6 +32,7 @@
         <zookeeper.version>3.7.0</zookeeper.version>
         <junit.version>4.13.2</junit.version>
         <zkclient.version>0.11</zkclient.version>
+        <okhttp.version>4.9.3</okhttp.version>
     </properties>
 
     <parent>
@@ -99,6 +100,11 @@
                 <groupId>com.101tec</groupId>
                 <artifactId>zkclient</artifactId>
                 <version>${zkclient.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>okhttp</artifactId>
+                <version>${okhttp.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

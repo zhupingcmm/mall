@@ -23,10 +23,8 @@ public class ObjectTransformer {
             if (after != null) {
                 after.after(source, target);
             }
-        } catch (InstantiationException | IllegalAccessException e) {
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
            throw new BusinessException(ResponseEnum.TRANSFORM_EXCEPTION);
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
         }
         return target;
     }
