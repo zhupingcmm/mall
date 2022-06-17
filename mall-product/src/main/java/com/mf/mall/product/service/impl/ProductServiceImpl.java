@@ -1,5 +1,6 @@
 package com.mf.mall.product.service.impl;
 
+import com.mf.mall.common.annotation.MyRateLimiter;
 import com.mf.mall.common.base.Constants;
 import com.mf.mall.common.base.ResponseEnum;
 import com.mf.mall.common.dto.OrderItemDTO;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,7 +34,8 @@ public class ProductServiceImpl implements IProductService {
 //    @Cacheable(cacheNames = Constants.PRODUCT_CHANGE_KEY, key = "#id")
 
     @Override
-    @MyCacheable(cacheNames = Constants.PRODUCT_CHANGE_KEY_PRE, key = "#id")
+//    @MyCacheable(cacheNames = Constants.PRODUCT_CHANGE_KEY_PRE, key = "#id")
+    @MyRateLimiter(permits = 10, timeout = 1)
     public ProductsDTO getProduct(Long id) {
         ProductsDO  productsDO  = productsMapper.selectProductById(id);
         log.info("Get productsDO: {}", productsDO);

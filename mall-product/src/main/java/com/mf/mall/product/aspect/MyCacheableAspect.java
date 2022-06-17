@@ -54,7 +54,7 @@ public class MyCacheableAspect {
         }
 
         // 限流处理
-        CacheUtil.rateLimit(myCacheable.waitInSeconds(), joinPoint, rateLimiterMap);
+//        CacheUtil.rateLimit(myCacheable.waitInSeconds(), joinPoint, rateLimiterMap);
         // 查询数据库
         cacheValue = joinPoint.proceed();
         // 过期时间的处理
