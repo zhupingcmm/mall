@@ -34,8 +34,8 @@ public class ProductServiceImpl implements IProductService {
 //    @Cacheable(cacheNames = Constants.PRODUCT_CHANGE_KEY, key = "#id")
 
     @Override
-//    @MyCacheable(cacheNames = Constants.PRODUCT_CHANGE_KEY_PRE, key = "#id")
-    @MyRateLimiter(permits = 10, timeout = 1)
+    @MyCacheable(cacheNames = Constants.PRODUCT_CHANGE_KEY_PRE, key = "#id")
+    @MyRateLimiter(permits = 1, permitPerSecond = 2, timeout = 1)
     public ProductsDTO getProduct(Long id) {
         ProductsDO  productsDO  = productsMapper.selectProductById(id);
         log.info("Get productsDO: {}", productsDO);
