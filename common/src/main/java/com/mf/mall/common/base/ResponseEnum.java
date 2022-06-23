@@ -3,7 +3,7 @@ package com.mf.mall.common.base;
 import lombok.Getter;
 
 public enum ResponseEnum {
-    SUCCESS(0, "交易成功"),
+    SUCCESS(0, "请求成功"),
 
     /** 数据库操作异常 **/
     ENTITY_NOT_FOUND(1000, "数据不存在"),
@@ -27,7 +27,9 @@ public enum ResponseEnum {
     /** 程序异常 **/
     FEIGN_CALL_EXCEPTION(9997,"远程调用失败"),
     TRANSFORM_EXCEPTION(9998, "对象转换异常"),
-    ERROR(9999, "系统异常");
+    ERROR(9999, "系统异常"),
+
+    TOKEN_EXPIRED(1001,"token 过期");
 
     ResponseEnum(int code, String message) {
         this.code = code;

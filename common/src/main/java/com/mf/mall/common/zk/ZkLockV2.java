@@ -77,6 +77,7 @@ public class ZkLockV2 implements Lock {
     public boolean tryLock() {
 
         if(StringUtils.isBlank(currentPath.get())) {
+            System.out.println("----");
             String path = zkClient.createEphemeralSequential(lockPath + "/", Thread.currentThread().getName());
             currentPath.set(path);
         }

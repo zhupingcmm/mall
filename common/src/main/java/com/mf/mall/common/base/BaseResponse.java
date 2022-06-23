@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.omg.CORBA.PUBLIC_MEMBER;
 
 @NoArgsConstructor
 @Data
@@ -53,6 +54,10 @@ public class BaseResponse<T> extends BaseBean {
      */
     public static BaseResponse error() {
         return new BaseResponse(ResponseEnum.ERROR);
+    }
+
+    public static  BaseResponse error(ResponseEnum responseEnum) {
+        return new BaseResponse(responseEnum);
     }
 
 }
