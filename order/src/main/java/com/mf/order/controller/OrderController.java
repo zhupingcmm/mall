@@ -13,12 +13,14 @@ import org.springframework.web.client.RestTemplate;
 @RestController
 @RequestMapping("/order")
 public class OrderController {
+
+    private static final String paymentService = "http://mall-payment";
     @Autowired
     private RestTemplate restTemplate;
 
     @GetMapping("/payment/{id}")
     public ResponseEntity<Payment> getPaymentById(@PathVariable("id") Integer id) {
-        String url = "http://localhost:8081/payment/" + id;
+        val url = String.format("%s/payment/%d", paymentService, id);
         val payment = restTemplate.getForObject(url, Payment.class);
         return ResponseEntity.ok(payment);
 

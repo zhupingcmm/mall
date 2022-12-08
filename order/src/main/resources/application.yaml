@@ -1,2 +1,16 @@
 server:
-  port: 8080
+  port: ${port:8080}
+spring:
+  application:
+    name: mall-order
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+
+logging:
+  pattern:
+    console: level-%level %msg%n
+  level:
+    root: info
+    com.mf: debug
