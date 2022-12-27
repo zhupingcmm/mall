@@ -4,10 +4,14 @@ spring:
   cloud:
     nacos:
       config:
-        server-addr: 127.0.0.1:8848
+        server-addr: 127.0.0.1:8849
         file-extension: yml
   profiles:
     include: qa
+  plock:
+    address: localhost:6379
+#    password:
+
 #  config:
 #    import:
 #      - optional:nacos:mall-payment.yml
