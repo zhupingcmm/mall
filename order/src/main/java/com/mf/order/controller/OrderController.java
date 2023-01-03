@@ -2,6 +2,7 @@ package com.mf.order.controller;
 
 import com.mf.common.Payment;
 import com.mf.order.feign.PaymentClient;
+import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/order")
+@Slf4j
 public class OrderController {
     @Qualifier("com.mf.order.feign.PaymentClient")
     @Autowired
@@ -30,7 +32,8 @@ public class OrderController {
     }
 
     @GetMapping("/payment/{id}")
-    public ResponseEntity<Payment> getPaymentById(@PathVariable("id") Integer id) {
+    public ResponseEntity<Payment> getPaymentById(@PathVariable("id") Integer id, String color) {
+        log.info("color is {}", color );
         val payment = paymentClient.payment(id);
         return ResponseEntity.ok(payment);
     }

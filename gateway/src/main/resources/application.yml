@@ -25,3 +25,12 @@ spring:
           uri: http://localhost:8080
           predicates:
             - Path=/order/**
+          filters:
+            - AddRequestParameter=color, blue
+#        - id: path_order_route
+#          uri: http://localhost:8080
+#          predicates:
+#            - Path=/**
+#          filters:
+##            - PrefixPath=/order
+#            - AddRequestParameter=color, blue

@@ -25,9 +25,9 @@ feign:
       useGzipDecoder: true
 
 
-logging:
-  pattern:
-    console: level-%level %msg%n
-  level:
-    root: info
-    com.mf: debug
+#logging:
+#  pattern:
+#    console: level-%level %msg%n
+#  level:
+#    root: info
+#    com.mf: debug
