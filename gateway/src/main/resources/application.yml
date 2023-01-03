@@ -1,0 +1,27 @@
+server:
+  port: 9000
+spring:
+  application:
+    name: mall-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8849
+    gateway:
+      discovery:
+        locator:
+          # ?????DiscoveryClient??
+          enabled: true
+      routes:
+#        - id: baidu_route
+#          uri: https://www.baidu.com
+#          predicates:
+#            - Path=/**
+        - id: path_payment_route
+          uri: lb://mall-payment
+          predicates:
+            - Path=/payment/**
+        - id: path_order_route
+          uri: http://localhost:8080
+          predicates:
+            - Path=/order/**

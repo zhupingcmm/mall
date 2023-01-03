@@ -21,7 +21,6 @@ public interface PaymentClient {
         public Payment payment(Integer id) {
             Payment payment = new Payment(id, "熔断降级方法返回");
             return payment;
-
         }
     }
 }
