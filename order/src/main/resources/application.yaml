@@ -3,6 +3,16 @@ server:
 spring:
   application:
     name: mall-order
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/order?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: 1234
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+    show-sql: true
   cloud:
     nacos:
       discovery:
@@ -23,11 +33,3 @@ feign:
     response:
       enabled: true
       useGzipDecoder: true
-
-
-#logging:
-#  pattern:
-#    console: level-%level %msg%n
-#  level:
-#    root: info
-#    com.mf: debug

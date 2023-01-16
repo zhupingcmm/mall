@@ -1,17 +1,17 @@
 package com.mf.order.controller;
 
 import com.mf.common.Payment;
+import com.mf.order.controller.vo.OrderVO;
+import com.mf.order.convert.OrderConvert;
 import com.mf.order.feign.PaymentClient;
+import com.mf.order.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/order")
@@ -20,6 +20,9 @@ public class OrderController {
     @Qualifier("com.mf.order.feign.PaymentClient")
     @Autowired
     private PaymentClient paymentClient;
+
+    @Autowired
+    private OrderService orderService;
 
 
     @Autowired
@@ -36,5 +39,12 @@ public class OrderController {
         log.info("color is {}", color );
         val payment = paymentClient.payment(id);
         return ResponseEntity.ok(payment);
+    }
+
+
+    @PostMapping
+    public ResponseEntity<OrderVO> addOrder(@RequestBody OrderVO orderVO){
+        val order = orderService.addOrder(OrderConvert.INSTANCE.convertToEntity(orderVO));
+        return ResponseEntity.ok(OrderConvert.INSTANCE.convertToVo(order));
     }
 }

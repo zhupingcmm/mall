@@ -12,6 +12,3 @@ spring:
     address: localhost:6379
 #    password:
 
-#  config:
-#    import:
-#      - optional:nacos:mall-payment.yml
