@@ -4,5 +4,6 @@ Content-Type: application/json
 
 {
   "productName": "小米手机",
-  "count": 100
+  "count": 100,
+  "unitPrice": 10.0
 }

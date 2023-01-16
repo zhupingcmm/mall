@@ -5,12 +5,14 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Data
-public class Payment extends BaseBean {
+@Accessors(chain = true)
+public class Message extends BaseBean {
     private Integer id;
     private String message;
 }

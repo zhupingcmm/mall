@@ -1,0 +1,14 @@
+####
+POST localhost:8801/payment
+Content-Type: application/json
+
+{
+  "productName": "小米手机",
+  "count": 1,
+  "unitPrice": 10.0,
+  "amount": 10.0
+}
+
+####
+GET localhost:8801/payment/1
+Content-Type: application/json

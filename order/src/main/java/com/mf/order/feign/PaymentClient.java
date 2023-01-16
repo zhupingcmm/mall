@@ -1,26 +1,34 @@
 package com.mf.order.feign;
 
-import com.mf.common.Payment;
+import com.mf.common.Message;
+import com.mf.common.payment.PaymentVO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @FeignClient(value = "mall-payment", fallback = PaymentClient.Fallback.class)
 @RequestMapping("payment")
 public interface PaymentClient {
 
     @GetMapping("/{id}")
-    Payment payment(@PathVariable Integer id);
+    Message payment(@PathVariable Integer id);
+
+    @PostMapping
+    PaymentVO addPayment(@RequestBody PaymentVO paymentVO);
+
 
     @Component
     @RequestMapping("fallback/payment")
     class Fallback implements PaymentClient {
         @Override
-        public Payment payment(Integer id) {
-            Payment payment = new Payment(id, "熔断降级方法返回");
+        public Message payment(Integer id) {
+            Message payment = new Message(id, "熔断降级方法返回");
             return payment;
+        }
+
+        @Override
+        public PaymentVO addPayment(PaymentVO paymentVO) {
+            return new PaymentVO().setId(100L);
         }
     }
 }

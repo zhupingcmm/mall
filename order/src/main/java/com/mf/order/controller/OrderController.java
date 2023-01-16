@@ -1,6 +1,6 @@
 package com.mf.order.controller;
 
-import com.mf.common.Payment;
+import com.mf.common.Message;
 import com.mf.order.controller.vo.OrderVO;
 import com.mf.order.convert.OrderConvert;
 import com.mf.order.feign.PaymentClient;
@@ -35,7 +35,7 @@ public class OrderController {
     }
 
     @GetMapping("/payment/{id}")
-    public ResponseEntity<Payment> getPaymentById(@PathVariable("id") Integer id, String color) {
+    public ResponseEntity<Message> getPaymentById(@PathVariable("id") Integer id, String color) {
         log.info("color is {}", color );
         val payment = paymentClient.payment(id);
         return ResponseEntity.ok(payment);
