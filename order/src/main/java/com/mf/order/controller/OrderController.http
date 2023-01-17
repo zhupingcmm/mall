@@ -1,9 +1,9 @@
 ####
-POST localhost:8080/order
+POST localhost:8080/order/0
 Content-Type: application/json
 
 {
-  "productName": "小米手机",
+  "productName": "红米手机",
   "count": 100,
   "unitPrice": 10.0
 }

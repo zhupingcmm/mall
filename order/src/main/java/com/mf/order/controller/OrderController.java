@@ -41,10 +41,11 @@ public class OrderController {
         return ResponseEntity.ok(payment);
     }
 
+    @PostMapping("/{id}")
+    public ResponseEntity<OrderVO> addOrder(@PathVariable Long id, @RequestBody OrderVO orderVO){
+        val order = orderService.addOrder(id, OrderConvert.INSTANCE.convertToEntity(orderVO));
 
-    @PostMapping
-    public ResponseEntity<OrderVO> addOrder(@RequestBody OrderVO orderVO){
-        val order = orderService.addOrder(OrderConvert.INSTANCE.convertToEntity(orderVO));
+
         return ResponseEntity.ok(OrderConvert.INSTANCE.convertToVo(order));
     }
 }

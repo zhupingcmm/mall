@@ -4,11 +4,17 @@ import com.mf.common.Message;
 import com.mf.payment.entity.Payment;
 import com.mf.payment.repository.PaymentRepository;
 import com.mf.payment.service.PaymentService;
+import io.seata.core.context.RootContext;
+import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
+@Slf4j
 public class PaymentServiceImpl implements PaymentService {
     @Value("${server.port}")
     private String port;
@@ -27,7 +33,10 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
+    @Transactional
     public Payment addPayment(Payment payment) {
+        val xid = RootContext.getXID();
+        log.info("xid:::::: ,{}", xid);
         return paymentRepository.save(payment);
     }
 }
